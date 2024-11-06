@@ -1,5 +1,6 @@
 from pyspark.ml.feature import VectorAssembler, StandardScaler
 from pyspark.sql import DataFrame
+from pyspark.sql.functions import col
 
 def cleaner(df: DataFrame) -> DataFrame:
     """
@@ -49,3 +50,36 @@ def scale_features(df: DataFrame) -> DataFrame:
 
     # Return the scaled data
     return df_scaled
+
+def class_imbalance(df: DataFrame) -> DataFrame:
+    """
+    This function will handle class imbalance in the dataset
+    :param df: The input dataframe
+    :return: The balanced dataframe
+    """
+
+    # Count the number of instances in each class
+    # Count the number of fraudulent and non-fraudulent transactions
+    fraud_count = df.filter(col('Class') == 1).count()
+    non_fraud_count = df.filter(col('Class') == 0).count()
+    print(f"Fraudulent transactions: {fraud_count}\nNon-fraudulent transactions: {non_fraud_count} before balancing")
+
+    # Undersampling the non-fraudulent transactions
+    df_fraud = df.filter(col('Class') == 1)
+    df_non_fraud = df.filter(col('Class') == 0).sample(fraction=fraud_count / non_fraud_count)
+
+    # Combine the two classes
+    df_balanced = df_fraud.union(df_non_fraud)
+
+    return df_balanced
+
+def split_data(df: DataFrame, seed = 42) -> (DataFrame, DataFrame):
+    """
+    This function will split the data into training and testing sets
+    :param seed: Seed for reproducibility
+    :param df: The input dataframe
+    :return: The training and testing dataframes
+    """
+
+    # Split the data into training and testing sets
+    return df.randomSplit([0.8, 0.2], seed)
