@@ -15,22 +15,17 @@ This project aims to develop a real-time fraud detection system leveraging Spark
 ## Setup
 ### MacOS
 1. Install Java 8 or 11
-If you have multiple versions of Java installed, you need to temporarily set JAVA_HOME to either Java 8 or 11.
-Use Homebrew to install Java 8 or 11.
+   If you have multiple versions of Java installed, you need to temporarily set JAVA_HOME to either Java 8 or 11.
+   Use Homebrew to install Java 8 or 11.
+   ```bash
+   brew install openjdk@11
+   ```
 2. Install Hadoop
-```bash
-brew install hadoop
-```
+   ```bash
+   brew install hadoop
+   ```
 3. Set HADOOP_HOME
-```bash
-brew install openjdk@11
- ```
-1. Install Hadoop
-```bash
-brew install hadoop
-```
-1. Set HADOOP_HOME
     ```bash
     export HADOOP_HOME=/path/to/hadoop
-    source ~/.zshrc
+   source ~/.zshrc
     ```
