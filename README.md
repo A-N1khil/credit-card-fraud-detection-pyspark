@@ -29,3 +29,24 @@ This project aims to develop a real-time fraud detection system leveraging Spark
     export HADOOP_HOME=/path/to/hadoop
    source ~/.zshrc
     ```
+
+### Setting up Kafka
+1. Download Kafka from the [official website](https://kafka.apache.org/downloads)
+2. Extract the downloaded file
+3. Save your Kafka directory path to the KAFKA_HOME environment variable
+    ```bash
+    export KAFKA_HOME=/path/to/kafka/bin
+    source ~/.zshrc
+    ```
+4. Start Zookeeper
+    ```bash
+    $KAFKA_HOME/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties
+    ```
+5. Start Kafka
+    ```bash
+    $KAFKA_HOME/kafka-server-start.sh $KAFKA_HOME/config/server.properties
+    ```
+6. Create a topic
+    ```bash
+    $KAFKA_HOME/kafka-topics.sh --create --topic transactions --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+    ```
