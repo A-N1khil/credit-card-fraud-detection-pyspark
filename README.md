@@ -1,9 +1,9 @@
 # Credit Card Fraud Detection System using PySpark
 
 - [x] Add basic descriptions
-- [ ] Add more info about the dataset
+- [x] Add more info about the dataset
 - [ ] Add more info about the project
-- [ ] Add more info about the system
+- [x] Add more info about the system
 - [ ] Setup requirements
 
 ## Introduction
@@ -13,7 +13,13 @@ This project aims to develop a real-time fraud detection system leveraging Spark
 [Kaggle Credit Card Fraud Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud/data)
 
 ## Setup
-### MacOS
+
+> [!NOTE]  
+> This project has been developed on macOS. The setup instructions are for macOS. You can adapt them to your operating system.
+> Most of these commands need to be run in the root directory of the project, unless stated otherwise.
+
+### Setting up Hadoop
+
 1. Install Java 8 or 11
    If you have multiple versions of Java installed, you need to temporarily set JAVA_HOME to either Java 8 or 11.
    Use Homebrew to install Java 8 or 11.
@@ -30,23 +36,31 @@ This project aims to develop a real-time fraud detection system leveraging Spark
    source ~/.zshrc
     ```
 
+### Setting up your Python env
+1. Install requirements
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+### Setting up Scala
+> [!WARNING]
+> You need to have Scala installed on your system to run the Scala code.  
+> This project uses Scala 2.12. You can install it using Homebrew.
+ ```bash
+ brew install scala@2.12
+ ```
+
+Verify your installation by running the following command:
+```bash 
+scala -version
+```
+
 ### Setting up Kafka
-1. Download Kafka from the [official website](https://kafka.apache.org/downloads)
-2. Extract the downloaded file
-3. Save your Kafka directory path to the KAFKA_HOME environment variable
+We would be using Kafka via Docker for this project.
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
+2. Make sure you are in the root directory of the project, where you'll find the [docker-compose.yml](docker-compose.yml) file.
+3. Run the command to start Kafka and Zookeeper
     ```bash
-    export KAFKA_HOME=/path/to/kafka/bin
-    source ~/.zshrc
+    docker-compose up -d
     ```
-4. Start Zookeeper
-    ```bash
-    $KAFKA_HOME/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties
-    ```
-5. Start Kafka
-    ```bash
-    $KAFKA_HOME/kafka-server-start.sh $KAFKA_HOME/config/server.properties
-    ```
-6. Create a topic
-    ```bash
-    $KAFKA_HOME/kafka-topics.sh --create --topic transactions --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
-    ```
+You do not always need to run the above command. You can start and stop Kafka and Zookeeper using the Docker Desktop GUI.
