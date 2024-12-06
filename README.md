@@ -57,11 +57,38 @@ scala -version
 ```
 
 ### Setting up Kafka
-We would be using Kafka via Docker for this project.
-1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop)
-2. Make sure you are in the root directory of the project, where you'll find the [docker-compose.yml](docker-compose.yml) file.
-3. Run the command to start Kafka and Zookeeper
-    ```bash
-    docker-compose up -d
+1. Download Kafka from the [official website](https://kafka.apache.org/downloads).  
+   or via wget
+   ```bash
+    wget https://downloads.apache.org/kafka/2.8.0/kafka_2.13-2.8.0.tgz
     ```
-You do not always need to run the above command. You can start and stop Kafka and Zookeeper using the Docker Desktop GUI.
+2. Extract the installation files and note the directory as `$KAFKA`. Do not set the bin directory in your PATH
+3. Kafka requires Zookeeper to run. Start Zookeeper.
+    ```bash
+    $KAFKA/bin/zookeeper-server-start.sh $KAFKA/config/zookeeper.properties
+    ```
+4. Start Kafka
+    ```bash
+    $KAFKA/bin/kafka-server-start.sh $KAFKA/config/server.properties
+    ```
+
+# Running the code
+## Running the one with single producer and consumer
+1. Create a topic
+    ```bash
+    $KAFKA/bin/kafka-topics.sh --create --topic transactions --bootstrap-server localhost:9092
+    ```
+2. Run the producer [kafka_producer](kafka_streaming/kafka_producer.ipynb) notebook to start producing messages.
+3. Run the consumer [kafka_consumer](kafka_streaming/kafka_consumer.ipynb) notebook to start consuming messages.
+
+## Running the one with multiple producers and consumers
+1. Create a topic
+    ```bash
+    $KAFKA/bin/kafka-topics.sh --create --topic distributed_transactions --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+    ```
+2. Run the producer [kafka_distributed_producer](kafka_distributed_streaming/kafka_distributed_producer.ipynb) notebook to start producing messages.
+3. Run the first consumer [kafka_consumer_1](kafka_distributed_streaming/kafka_consumer_1.ipynb) notebook to start consuming messages.
+4. Run the first consumer [kafka_consumer_2](kafka_distributed_streaming/kafka_consumer_2.ipynb) notebook to start consuming messages.
+
+# Verifying the logs
+All the logs are stored in the respective folders. You can verify the logs to see the messages being produced and consumed.
