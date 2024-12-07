@@ -1,10 +1,24 @@
 # Credit Card Fraud Detection System using PySpark
 
+## Contents
+1. [Introduction](#introduction)
+2. [Dataset](#dataset)
+3. [Setup](#setup)
+    1. [Setting up Hadoop](#setting-up-hadoop)
+    2. [Setting up your Python env](#setting-up-your-python-env)
+    3. [Setting up Scala](#setting-up-scala)
+    4. [Setting up Kafka](#setting-up-kafka)
+4. [Running the code](#running-the-code)
+    1. [Running the one with single producer and consumer](#running-the-one-with-single-producer-and-consumer)
+    2. [Running the one with multiple producers and consumers](#running-the-one-with-multiple-producers-and-consumers)
+    3. [Verifying the logs](#verifying-the-logs)
+5. [Code files and their description](#code-files-and-their-description)
+
 ## Introduction
 This project aims to develop a real-time fraud detection system leveraging Spark Streaming and machine learning for anomaly detection. The goal is to process streaming data in real-time to identify fraudulent transactions, focusing on system performance and efficiency. The system will integrate fundamental operating system concepts such as concurrency, memory management, and scheduling to handle large-scale, high-frequency data streams.
 
 ## Dataset
-This dataset needs to be installed and the csv needs to be placed in the dataset folder. Please check reference for example
+This dataset needs to be installed and the csv needs to be placed in the dataset folder. Please check reference for example  
 [Kaggle Credit Card Fraud Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud/data)
 
 ## Setup
@@ -66,7 +80,7 @@ scala -version
     $KAFKA/bin/kafka-server-start.sh $KAFKA/config/server.properties
     ```
 
-# Running the code
+## Running the code
 ## Running the one with single producer and consumer
 1. Create a topic
     ```bash
@@ -82,7 +96,16 @@ scala -version
     ```
 2. Run the producer [kafka_distributed_producer](kafka_distributed_streaming/kafka_distributed_producer.ipynb) notebook to start producing messages.
 3. Run the first consumer [kafka_consumer_1](kafka_distributed_streaming/kafka_consumer_1.ipynb) notebook to start consuming messages.
-4. Run the first consumer [kafka_consumer_2](kafka_distributed_streaming/kafka_consumer_2.ipynb) notebook to start consuming messages.
+4. Run the second consumer [kafka_consumer_2](kafka_distributed_streaming/kafka_consumer_2.ipynb) notebook to start consuming messages.
 
-# Verifying the logs
+### Verifying the logs
 All the logs are stored in the respective folders. You can verify the logs to see the messages being produced and consumed.
+
+## Code files and their description
+1. [kafka_producer](kafka_streaming/kafka_producer.ipynb) - This notebook contains the code for the producer that produces messages to the Kafka topic.
+2. [kafka_consumer](kafka_streaming/kafka_consumer.ipynb) - This notebook contains the code for the consumer that consumes messages from the Kafka topic.
+3. [kafka_distributed_producer](kafka_distributed_streaming/kafka_distributed_producer.ipynb) - This notebook contains the code for the distributed producer that produces messages to the Kafka topic.
+4. [kafka_consumer_1](kafka_distributed_streaming/kafka_consumer_1.ipynb) - This notebook contains the code for the first consumer that consumes messages from the Kafka topic.
+5. [kafka_consumer_2](kafka_distributed_streaming/kafka_consumer_2.ipynb) - This notebook contains the code for the second consumer that consumes messages from the Kafka topic.
+6. [credit_card_fraud_detection](credit-card-fraud-detection.ipynb) - This notebook contains the code for the credit card fraud detection system using PySpark.
+7. [pipelining](pipelining.ipynb) - This notebook contains the code for pipelining in PySpark.
