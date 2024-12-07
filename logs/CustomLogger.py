@@ -1,11 +1,17 @@
 import logging
 import time
+import os
 
 class CustomLogger:
     def __init__(self, name):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.INFO)
-        handler = logging.FileHandler(f'{name}.{time.time()}.log')
+        path = f'{name}.{time.time()}.log'
+        if not os.path.exists(path):
+            with open(path, 'w') as file:
+                file.write('')
+                pass
+        handler = logging.FileHandler(path)
         handler.setLevel(logging.INFO)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         handler.setFormatter(formatter)
